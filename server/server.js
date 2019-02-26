@@ -37,6 +37,13 @@ app.get('/place-order',(req,res)=>{
     })
 })
 
+app.delete('/place-order',(req,res)=>{
+    place_order.deleteMany({}).then((data)=>{
+        res.send('delete successful')
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
 const port = process.env.PORT || 3000
 
 app.listen(port,()=>{
