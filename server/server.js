@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.post('/place-order',(req,res)=>{
     console.log(req.body);
-    var body = _.pick(req.body , ['amount','batches','component','componentType','expectedDate','price','quantity','supplier' ])
+    var body = _.pick(req.body , ['amount','batches','component','componentType','expectedDate','price','quantity','supplier', 'deliveryMode' ])
 
     var data1=new place_order(body) 
 

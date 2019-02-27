@@ -6,7 +6,7 @@ var place_order = mongoose.model('place_order',{
         default : null
     },
     batches : {
-        type : Number , 
+        type : Number ,
         default : null
     },
     component : {
@@ -37,6 +37,12 @@ var place_order = mongoose.model('place_order',{
         required : true ,
         trim : true
     },
+    deliveryMode :{
+        type : String,
+        required : true,
+        trim: true ,
+
+    }
 
 
 })
