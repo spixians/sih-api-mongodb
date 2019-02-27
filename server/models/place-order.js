@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-
+var data = new Date()
 var place_order = mongoose.model('place_order',{
     amount : {
         type : Number , 
@@ -42,6 +42,11 @@ var place_order = mongoose.model('place_order',{
         required : true,
         trim: true ,
 
+    },
+    orderDate : {
+        type: String,
+        default : data.getDate()+'-'+data.getMonth()+'-'+data.getFullYear() ,
+        trim :true,
     }
 
 
