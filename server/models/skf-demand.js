@@ -1,49 +1,54 @@
 var mongoose = require('mongoose')
+var data = new Date()
 
-var demand_estimation = mongoose.model('demand_estimation',{
+
+var Demand = mongoose.model('Demand',{
    
-    qty : {
+    quantity : {
         type : Number,
         required : true ,
        },
 
-   comp_name : {
-    type : String,
-    required : true ,
-    trim:true
-
-        },
-
-    comp_type:{
+    component : {
         type : String,
         required : true ,
-        trim:true
-           
-
+        trim:true   
     },
-    
-    mode_of_delivery:{
+    componentType:{
         type : String,
         required : true ,
-        trim:true
-    
+        trim:true,
     },
-
-    month:{
+    
+    deliveryMode:{
         type : String,
         required : true ,
-        trim:true
-    
+        trim:true,
     },
-
-    year:{
-        type : Number,
+    demandDate : {
+        type: String,
+        default : data.getDate()+'-'+data.getMonth()+'-'+data.getFullYear() ,
+        trim :true,
+    },
+    expectedDate : {
+        type : String,
         required : true ,
-        trim:true
-        }
+    },
+    warehouseAvailability : {
+        type : String,
+        required : true ,
+    },
+    monthlyProduce : {
+        type : String,
+        required : true ,
+    },
+    
+
+
+    
 })
 
-module.exports = { demand_estimation }
+module.exports = { Demand }
 
 // demand_estimation : {
 

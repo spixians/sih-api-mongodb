@@ -9,6 +9,7 @@ const _ =require('lodash')
 var { place_order } = require('./models/place-order')
 // var { Sample } =require('./models/sample')
 var {mongoose} = require('./db/mongoose');
+var { Demand } =require('./models/skf-demand')
 
 
 var app=express();
@@ -18,7 +19,7 @@ app.post('/place-order',(req,res)=>{
     console.log(req.body);
     var body = _.pick(req.body , ['amount','batches','component','componentType','expectedDate','price','quantity','supplier', 'deliveryMode' ])
     
-    // console.log(d)
+    //  console.log("hi")
     var data1=new place_order(body) 
 
     data1.save().then((d)=>{
@@ -31,6 +32,7 @@ app.post('/place-order',(req,res)=>{
 })
 
 app.get('/place-order',(req,res)=>{
+    console.log('working')
     place_order.find().then((data)=>{
         res.send({data});
     },(e)=>{
@@ -43,6 +45,39 @@ app.delete('/place-order',(req,res)=>{
         res.send('delete successful')
     },(e)=>{
         res.sendStatus(400).send(e)
+    })
+})
+
+app.get('/place-order/:supplier',(req,res)=>{
+    var name = req.params.supplier
+
+    place_order.find({supplier: name}).then((data)=>{
+        res.send(data)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+
+})
+
+app.get('/demand', (req,res)=>{
+    Demand.find().then((data)=>{
+        res.send({data});
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+
+app.post('/demand',(req, res)=>{
+    var body = _.pick(req.body , ['quantity', 'component','componentType','deliveryMode','demandDate','expectedDate','warehouseAvailability','monthlyProduce'])
+
+    var demand =new Demand(body)
+
+    demand.save().then((d)=>{
+        console.log(d)
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+        
     })
 })
 const port = process.env.PORT || 3000

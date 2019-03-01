@@ -47,9 +47,11 @@ var place_order = mongoose.model('place_order',{
         type: String,
         default : data.getDate()+'-'+data.getMonth()+'-'+data.getFullYear() ,
         trim :true,
+    },
+    dispatchStatus : {
+        type : String,
+        trim : true 
     }
-
-
 })
 
 module.exports = { place_order }
