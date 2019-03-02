@@ -62,6 +62,8 @@ app.get('/place-order/:supplier',(req,res)=>{
 app.get('/place-order/:component',(req,res)=>{
     var name= req.params.component
 
+    console.log(typeof name)
+
     place_order.find({component : name}).then((d)=>{
         res.send(d)
     },(e)=>{
