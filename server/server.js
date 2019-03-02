@@ -14,6 +14,30 @@ var { Delay } =require ('./models/delay')
 var app=express();
 app.use(bodyParser.json());
 
+
+/// DATE FUNCTIONS
+    function transportdate(date){
+        var today = new Date()
+        return today.setDate(date-10)
+    }
+    function productiondate(date){
+        var today = new Date()
+        return today.setDate(date.getDate()-70)
+    }
+    function vendordate(date){
+        var today = new Date()
+        return today.setDate(date.getDate()-80)
+    }
+    function rawmaterialorderDate(date){
+        var today = new Date()
+        return today.setDate(date.getDate()-80)
+    }
+
+  var a =  transportdate("12/02/2019");
+  console.log(a)
+
+/// DATE FUNCTIONS
+
 ///                         PLACEORDER
 
 app.post('/place-order',(req,res)=>{
@@ -90,11 +114,41 @@ app.post('/demand',(req, res)=>{
 
     demand.save().then((d)=>{
         // console.log(d)
+        // res.send(d)
+        var delay=Delay({
+            supplier: d.supplier,
+            component : d.component,
+            expectedDate : d.date,
+            placeOrderToRawMaterial:{
+                date : rawmaterialorderDate(d.date),
+            }, 
+            startSubvendor : {
+                date : vendordate(d.date),
+            } ,
+            startProduction : {
+                date : productiondate(d.date),
+            },
+            startTransport : {
+                date : transportdate(d.date)
+            }
+
+            
+        })
+        delay.save().then((d)=>{
+            console.log(d)
+            res.send(d)
+        },(e)=>{
+            res.sendStatus(400).send(e)
+        })
+
         res.send(d)
+
+        // res.send()
     },(e)=>{
         res.sendStatus(400).send(e)
-        
     })
+
+    
 })
 app.delete('/demand',(req,res)=>{
     Demand.deleteMany({}).then((d)=>{

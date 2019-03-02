@@ -1,10 +1,10 @@
 var mongoose = require('mongoose')
 var today = new Date()
 var transportdate=new Date()
-transportdate.setDate(today.getDate()-10)
-// console.log(transportdate)
+transportdate.toISOString(transportdate.setDate(today.getDate()-10));
+ console.log(transportdate)
 var productiondate=new Date()
-productiondate.setDate(today.getDate()-70)
+productiondate.setDate(today.getDate()-70);
 console.log(productiondate)
 var vendordate=new Date()
 vendordate.setDate(today.getDate()-80);
