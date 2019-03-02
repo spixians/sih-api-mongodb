@@ -68,7 +68,7 @@ app.get('/demand', (req,res)=>{
 })
 
 app.post('/demand',(req, res)=>{
-    var body = _.pick(req.body , ['quantity', 'component','componentType','deliveryMode','demandDate','expectedDate','warehouseAvailability','monthlyProduce'])
+    var body = _.pick(req.body , ['Supplier', 'yvolume','frequency','Mode','placeorderdate','replleadtime','callofidt','date'])
 
     var demand =new Demand(body)
 

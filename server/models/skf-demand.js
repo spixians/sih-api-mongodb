@@ -4,41 +4,41 @@ var data = new Date()
 
 var Demand = mongoose.model('Demand',{
    
-    quantity : {
-        type : Number,
+    Supplier: {
+        type : String,
         required : true ,
        },
-
-    component : {
-        type : String,
+    yvolume : {
+        type : Number,
         required : true ,
-        trim:true   
+        // trim:true   
     },
-    componentType:{
-        type : String,
+    frequency:{
+        type : Number,
         required : true ,
-        trim:true,
+        // trim:true,
     },
     
-    deliveryMode:{
+    Mode:{
         type : String,
         required : true ,
         trim:true,
     },
-    demandDate : {
+    placeorderdate : {
         type: String,
         default : data.getDate()+'-'+data.getMonth()+'-'+data.getFullYear() ,
         trim :true,
+        required : true
     },
-    expectedDate : {
-        type : String,
+    replleadtime : {
+        type : Number,
         required : true ,
     },
-    warehouseAvailability : {
-        type : String,
+    callofidt : {
+        type : Number,
         required : true ,
     },
-    monthlyProduce : {
+    date : {
         type : String,
         required : true ,
     },
