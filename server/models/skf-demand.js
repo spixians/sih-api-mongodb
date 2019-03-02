@@ -8,7 +8,7 @@ var Demand = mongoose.model('Demand',{
         type : String,
         required : true ,
        },
-    Component : {
+    Component : { 
         type: String,
         required : true,
         trim : true,

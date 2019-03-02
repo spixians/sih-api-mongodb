@@ -7,7 +7,7 @@ const { ObjectID } = require('mongodb')
 const _ =require('lodash')
 
 var { place_order } = require('./models/place-order')
-// var { Sample } =require('./models/sample')
+var { Sample } =require('./models/sample')
 var {mongoose} = require('./db/mongoose');
 var { Demand } =require('./models/skf-demand')
 var { Delay } =require ('./models/delay')
@@ -15,15 +15,17 @@ var { Delay } =require ('./models/delay')
 var app=express();
 app.use(bodyParser.json());
 
+///                         PLACEORDER
+
 app.post('/place-order',(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     var body = _.pick(req.body , ['amount','batches','component','componentType','expectedDate','price','quantity','supplier', 'deliveryMode' ])
     
-    //  console.log("hi")
+    // console.log("hi")
     var data1=new place_order(body) 
 
     data1.save().then((d)=>{
-        console.log(d)
+        // console.log(d)
         res.send(d)
     },(error)=>{
         console.log(error)
@@ -32,7 +34,7 @@ app.post('/place-order',(req,res)=>{
 })
 
 app.get('/place-order',(req,res)=>{
-    console.log('working')
+     console.log('working')
     place_order.find().then((data)=>{
         res.send({data});
     },(e)=>{
@@ -59,17 +61,10 @@ app.get('/place-order/:supplier',(req,res)=>{
 
 })
 
-app.get('/place-order/:component',(req,res)=>{
-    var name= req.params.component
+/////     PLACEORDER
 
-    console.log(typeof name)
 
-    place_order.find({component : name}).then((d)=>{
-        res.send(d)
-    },(e)=>{
-        res.sendStatus(400).send(e)
-    })
-})
+/////   DEMAND
 
 app.get('/demand', (req,res)=>{
     Demand.find().then((data)=>{
@@ -78,6 +73,8 @@ app.get('/demand', (req,res)=>{
         res.sendStatus(400).send(e)
     })
 })
+
+
 app.get('/demand/:component', (req,res)=>{
     var component = req.params.component;
 
@@ -88,12 +85,12 @@ app.get('/demand/:component', (req,res)=>{
     })
 } )
 app.post('/demand',(req, res)=>{
-    var body = _.pick(req.body , ['Supplier', 'yvolume','frequency','Mode','placeorderdate','replleadtime','callofidt','date'])
+    var body = _.pick(req.body , ['Supplier','Component', 'yvolume','frequency','Mode','placeorderdate','replleadtime','callofidt','date'])
 
     var demand =new Demand(body)
 
     demand.save().then((d)=>{
-        console.log(d)
+        // console.log(d)
         res.send(d)
     },(e)=>{
         res.sendStatus(400).send(e)
@@ -109,7 +106,10 @@ app.delete('/demand',(req,res)=>{
     })
 })
 
+/// DEMAND
 
+
+/////   DELAY
 
 app.get('/delay' ,(req,res)=>{
       Delay.find().then((d)=>{
@@ -131,6 +131,9 @@ app.post('/delay' , (req,res)=>{
         res.sendStatus(400).send(e)
     })
 })
+
+
+////// DELAY
 const port = process.env.PORT || 3000
 
 app.listen(port,()=>{
