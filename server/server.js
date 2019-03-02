@@ -66,7 +66,15 @@ app.get('/demand', (req,res)=>{
         res.sendStatus(400).send(e)
     })
 })
+app.get('/demand/:component', (req,res)=>{
+    var component = req.params.component;
 
+    Demand.find({Component:component}).then((data)=>{
+        res.send(data)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+} )
 app.post('/demand',(req, res)=>{
     var body = _.pick(req.body , ['Supplier', 'yvolume','frequency','Mode','placeorderdate','replleadtime','callofidt','date'])
 
@@ -88,6 +96,8 @@ app.delete('/demand',(req,res)=>{
         res.sendStatus(400).send(e)
     })
 })
+
+
 
 app.get('/delay' ,(req,res)=>{
       Demand.find().then((d)=>{
