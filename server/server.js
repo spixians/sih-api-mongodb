@@ -108,7 +108,16 @@ app.get('/delay' ,(req,res)=>{
         res.sendStatus(400).send(e)
     })
 app.post('/delay' , (req,res)=>{
-    var body = _.pick(req.body,[""])
+    var body = _.pick(req.body,["supplier","component","formDate","expectedDate"])
+
+    var delay = new Delay(body)
+
+    delay.save().then((d)=>{
+        console.log(d)
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
 })
 const port = process.env.PORT || 3000
 
