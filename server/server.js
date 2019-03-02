@@ -60,9 +60,9 @@ app.get('/place-order/:supplier',(req,res)=>{
 })
 
 app.get('/place-order/:component',(req,res)=>{
-    var component= req.params.component
+    var name= req.params.component
 
-    place_order.find({component : component}).then((d)=>{
+    place_order.find({component : name}).then((d)=>{
         res.send(d)
     },(e)=>{
         res.sendStatus(400).send(e)
