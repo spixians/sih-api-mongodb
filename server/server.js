@@ -80,6 +80,15 @@ app.post('/demand',(req, res)=>{
         
     })
 })
+app.delete('/demand',(req,res)=>{
+    Demand.deleteMany({}).then((d)=>{
+        console.log(d)
+        res.send("delete successful!!!!")   
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+
 app.get('/delay' ,(req,res)=>{
       Demand.find().then((d)=>{
           console.log(d)
