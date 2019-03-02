@@ -10,7 +10,7 @@ var { place_order } = require('./models/place-order')
 // var { Sample } =require('./models/sample')
 var {mongoose} = require('./db/mongoose');
 var { Demand } =require('./models/skf-demand')
-
+var { Delay } =require ('./models/delay')
 
 var app=express();
 app.use(bodyParser.json());
@@ -79,6 +79,17 @@ app.post('/demand',(req, res)=>{
         res.sendStatus(400).send(e)
         
     })
+})
+app.get('/delay' ,(req,res)=>{
+      Demand.find().then((d)=>{
+          console.log(d)
+          res.send(d)
+      })  
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+app.post('/delay' , (req,res)=>{
+    var body = _.pick(req.body,[""])
 })
 const port = process.env.PORT || 3000
 
