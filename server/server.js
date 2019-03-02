@@ -100,7 +100,7 @@ app.delete('/demand',(req,res)=>{
 
 
 app.get('/delay' ,(req,res)=>{
-      Demand.find().then((d)=>{
+      Delay.find().then((d)=>{
           console.log(d)
           res.send(d)
       })  
