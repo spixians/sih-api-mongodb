@@ -7,7 +7,6 @@ const { ObjectID } = require('mongodb')
 const _ =require('lodash')
 
 var { place_order } = require('./models/place-order')
-var { Sample } =require('./models/sample')
 var {mongoose} = require('./db/mongoose');
 var { Demand } =require('./models/skf-demand')
 var { Delay } =require ('./models/delay')
