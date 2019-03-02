@@ -10,7 +10,7 @@ var place_order = mongoose.model('place_order',{
         default : null
     },
     component : {
-        type : String,
+        type : Number,
         required : true ,
         trim : true
     },
