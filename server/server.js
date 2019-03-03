@@ -11,6 +11,7 @@ var {mongoose} = require('./db/mongoose');
 var { Demand } =require('./models/skf-demand')
 var { Delay } =require ('./models/delay')
 var {ColorTracking}=require('./models/color-tracking');
+var {Inventory} = require ('./models/inventory')
 
 var app=express();
 app.use(bodyParser.json());
@@ -212,6 +213,30 @@ app.get('/color-track',(req,res)=>{
 })
 
 ///// COLOR TRACKING
+
+///// INVENTORY
+
+
+app.post('/inventory',(req,res)=>{
+    var body=_.pick(req.body,[ 'Component', 'ComponentType','quantity'])
+
+    var inventory = new Inventory(body)
+
+    inventory.save().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+
+app.get('/inventory',(req,res)=>{
+    Inventory.find().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+///// INVENTORY
 const port = process.env.PORT || 3000
 
 app.listen(port,()=>{
