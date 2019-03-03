@@ -12,6 +12,7 @@ var { Demand } =require('./models/skf-demand')
 var { Delay } =require ('./models/delay')
 var {ColorTracking}=require('./models/color-tracking');
 var {Inventory} = require ('./models/inventory')
+var { RawOrders } =require('./models/raw-material-order')
 
 var app=express();
 app.use(bodyParser.json());
@@ -216,7 +217,7 @@ app.get('/color-track/:componentName' , (req,res)=>{
     var name =  req.params.componentName
     // var type =  req.params.componentType
 
-    ColorTracking.find({compname : name }).then((d)=>{
+    ColorTracking.find({compno : name }).then((d)=>{
         res.send(d)
     },(e)=>{
         res.sendStatus(400).send(e)
@@ -248,6 +249,28 @@ app.get('/inventory',(req,res)=>{
     })
 })
 ///// INVENTORY
+
+
+//// RAW MATERIAL
+app.post('/raw-material-order',(req,res)=>{
+    var body = _.pick(req.body,['componentType','quantity','price' ,'totalamount' , 'expectedDate'])
+
+    var order = new RawOrders(body)
+    order.save().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+
+app.get('/raw-material-order',(req,res)=>{
+    RawOrders.find().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus.send(e)
+    })
+})
+//// RAW MATERIAL
 const port = process.env.PORT || 3000
 
 app.listen(port,()=>{
