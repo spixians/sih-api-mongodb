@@ -194,7 +194,7 @@ app.post('/delay' , (req,res)=>{
 ///// COLOR TRACKING
 
 app.post('/color-track',(req,res)=>{
-    var body = _.pick(req.body,['compno','compname','comptype','quantity','supplyname','rt','frequency'])
+    var body = _.pick(req.body,['compno','compname','comptype','quantity','supplyname','rt','frequency','cssinvent'])
 
     var color = new ColorTracking(body)
 

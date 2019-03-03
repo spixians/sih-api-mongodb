@@ -20,6 +20,9 @@ var ColorTracking=mongoose.model('ColorTracking',{
     },
     frequency : {
         type: Number
+    },
+    cssinvent:{
+        type: Number
     }
 })
 
