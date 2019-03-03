@@ -255,6 +255,17 @@ app.get('/inventory',(req,res)=>{
         res.sendStatus(400).send(e)
     })
 })
+
+app.get('/inventory/:component/:type',(req,res)=>{
+    var c=req.params.component
+    var t=req.params.type
+    Inventory.find({Component : c ,ComponentType: t }).then((d)=>{
+        res.send(d)
+
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
 ///// INVENTORY
 
 
