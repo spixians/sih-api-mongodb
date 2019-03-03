@@ -212,6 +212,17 @@ app.get('/color-track',(req,res)=>{
     })
 })
 
+app.get('/color-track/:componentName' , (req,res)=>{
+    var name =  req.params.componentName
+    // var type =  req.params.componentType
+
+    ColorTracking.find({compname : name }).then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+
 ///// COLOR TRACKING
 
 ///// INVENTORY
