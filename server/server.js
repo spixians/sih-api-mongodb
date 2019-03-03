@@ -213,6 +213,13 @@ app.get('/color-track',(req,res)=>{
     })
 })
 
+app.delete('/color-track',(req,res)=>{
+    ColorTracking.deleteMany().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
 app.get('/color-track/:componentName' , (req,res)=>{
     var name =  req.params.componentName
     // var type =  req.params.componentType
