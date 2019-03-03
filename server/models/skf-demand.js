@@ -13,6 +13,11 @@ var Demand = mongoose.model('Demand',{
         required : true,
         trim : true,
     },
+    comptype : { 
+        type: String,
+        required : true,
+        trim : true,
+    },
     yvolume : {
         type : Number,
         required : true ,

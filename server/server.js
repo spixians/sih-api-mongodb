@@ -10,6 +10,7 @@ var { place_order } = require('./models/place-order')
 var {mongoose} = require('./db/mongoose');
 var { Demand } =require('./models/skf-demand')
 var { Delay } =require ('./models/delay')
+var {ColorTracking}=require('./models/color-tracking');
 
 var app=express();
 app.use(bodyParser.json());
@@ -187,6 +188,30 @@ app.post('/delay' , (req,res)=>{
 
 
 ////// DELAY
+
+///// COLOR TRACKING
+
+app.post('/color-track',(req,res)=>{
+    var body = _.pick(req.body,['compno','compname','comptype','quantity','supplyname','rt','frequency'])
+
+    var color = new ColorTracking(body)
+
+    color.save().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        
+        res.sendStatus(400).send(e)
+    })
+})
+app.get('/color-track',(req,res)=>{
+    ColorTracking.find().then((d)=>{
+        res.send(d)
+    },(e)=>{
+        res.sendStatus(400).send(e)
+    })
+})
+
+///// COLOR TRACKING
 const port = process.env.PORT || 3000
 
 app.listen(port,()=>{
